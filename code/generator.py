@@ -45,7 +45,7 @@ class Generator:
 
 if __name__ == "__main__":
     dataset_directory = f'../dataset2/train/'
-    a = Generator(dataset_directory, 4, (720,720))
+    a = Generator(dataset_directory, 4, (360,360))
     print(dataset_directory)
     print("OO")
     for x in a.generate():
