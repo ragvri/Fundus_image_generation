@@ -3,7 +3,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as dset
 
 # Directory containing the data.
-root = '/home/cs551_group_03/project/dataset2/'
+root = '/home1/tulika/fundus2/fundus/'
 
 def get_celeba(params):
     """
@@ -25,6 +25,6 @@ def get_celeba(params):
     # Create the dataloader.
     dataloader = torch.utils.data.DataLoader(dataset,
         batch_size=params['bsize'],
-        shuffle=True, num_workers=168)
+        shuffle=True, num_workers= 1)
 
     return dataloader

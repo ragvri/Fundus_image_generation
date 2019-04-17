@@ -1,3 +1,4 @@
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -18,11 +19,11 @@ print("Random Seed: ", seed)
 
 # Parameters to define the model.
 params = {
-    "bsize" : 1024,# Batch size during training.
-    'imsize' : 64,# Spatial size of training images. All images will be resized to this size during preprocessing.
+    "bsize" : 2,# Batch size during training.
+    'imsize' : 720,# Spatial size of training images. All images will be resized to this size during preprocessing.
     'nc' : 3,# Number of channles in the training images. For coloured images this is 3.
     'nz' : 100,# Size of the Z latent vector (the input to the generator).
-    'ngf' : 64,# Size of feature maps in the generator. The depth will be multiples of this.
+    'ngf' : 32,# Size of feature maps in the generator. The depth will be multiples of this.
     'ndf' : 64, # Size of features maps in the discriminator. The depth will be multiples of this.
     'nepochs' : 10,# Number of training epochs.
     'lr' : 0.0002,# Learning rate for optimizers
