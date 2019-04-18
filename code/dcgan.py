@@ -15,6 +15,7 @@ import argparse
 import math
 from setup import *
 from generator import *
+import tensorflow as tf
 
 
 def generator_model():
@@ -93,13 +94,13 @@ def train(batch_size, dataset_directory, epochs, target_size=(360, 360)):
     d = discriminator_model()
     g = generator_model()
     print("Making d and g multi gpu")
-    if multi_gpu:
-        d = multi_gpu_model(d, gpus=8)
-        g = multi_gpu_model(g, gpus=8)
+    # if multi_gpu:
+    #     d = multi_gpu_model(d, gpus=8)
+    #     g = multi_gpu_model(g, gpus=8)
     d_on_g = generator_containing_discriminator(g, d)
     print("making multi gpu")
-    if multi_gpu:
-        d_on_g = multi_gpu_model(d_on_g, gpus=8)
+    # if multi_gpu:
+    #     d_on_g = multi_gpu_model(d_on_g, gpus=8)
     d_optim = SGD(lr=0.0005, momentum=0.9, nesterov=True)
     g_optim = SGD(lr=0.0005, momentum=0.9, nesterov=True)
     g.compile(loss='binary_crossentropy', optimizer="SGD")
@@ -124,8 +125,9 @@ def train(batch_size, dataset_directory, epochs, target_size=(360, 360)):
                 # to save images
                 image = combine_images(generated_images)
                 image = image*127.5+127.5
+                save_path = f'./../generated_images/{epoch}_{step}.png'
                 Image.fromarray(image.astype(np.uint8)).save(
-                    str(epoch)+"_"+str(step)+".png")
+                    save_path)
             X = np.concatenate((X_train, generated_images))
             y = [1] * batch_size + [0] * batch_size
             print('Starting training discriminator')
@@ -188,11 +190,13 @@ def get_args():
 
 
 if __name__ == "__main__":
+    print('reset')
+    tf.reset_default_graph()
     dataset_directory = f'../dataset2/train/'
-    batch_size = 4
+    batch_size = 16
     epochs = 100
-    gpu_id = '5'
-    # setup_gpu(gpu_id)
+    gpu_id = '7'
+    setup_gpu(gpu_id)
     args = get_args()
 
     if args.mode == "train":
