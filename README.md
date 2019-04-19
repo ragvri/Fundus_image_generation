@@ -7,13 +7,17 @@ Creating a new dataset requires the presence of a large amount of skilled manpow
 Fundus images are the images of the interior surface of the eye opposite the lens and includes retina, optic disc etc. Diabetic retinopathy is a diabetes complication that affects eyes and caused by damage to the blood vessels of the light-sensitive tissue at the back of the eye (retina). It can be detected with the help of fundus images.
 
 
+<!-- <a href="url"><img src="http://url.to/image.png" align="left" height="48" width="48" ></a> -->
 
-![](image1.png)
+![](image1.png = 200px)
 ![](image2.png)
 
 ## Method
+1) Implement DCGAN
+2) Train our model on the dataset
+3) Generate new images
 
-We
+**NB**: We tried to classify the images using a simple VGG16 based architecutre. (700 examples for fundus containing diabetic retinopathy manifestation and 700 for normal fundus images). However, we got accuracy only of about 50% which is just as good as coin tossing. Thus we our hypothesis is that we should be able to get better classification if we have more data available. So, 
 ## Dataset 
 
 Any GAN requires small real world data to train the discriminator. For our project, this dataset was taken from [kaggle](https://www.kaggle.com/c/diabetic-retinopathy-detection/data). We made use of about 709 images level 4 diabetic retinopathy images from this dataset. 
