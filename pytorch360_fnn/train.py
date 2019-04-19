@@ -19,19 +19,19 @@ print("Random Seed: ", seed)
 
 # Parameters to define the model.
 params = {
-    "bsize" : 2,# Batch size during training.
+    "bsize" : 90,# Batch size during training.
     'imsize' : 360,# Spatial size of training images. All images will be resized to this size during preprocessing.
     'nc' : 3,# Number of channles in the training images. For coloured images this is 3.
     'nz' : 100,# Size of the Z latent vector (the input to the generator).
     'ngf' : 32,# Size of feature maps in the generator. The depth will be multiples of this.
     'ndf' : 64, # Size of features maps in the discriminator. The depth will be multiples of this.
-    'nepochs' : 10,# Number of training epochs.
+    'nepochs' : 100,# Number of training epochs.
     'lr' : 0.0002,# Learning rate for optimizers
     'beta1' : 0.5,# Beta1 hyperparam for Adam optimizer
     'save_epoch' : 2}# Save step.
 
 # Use GPU is available else use CPU.
-device = torch.device("cuda:7" if(torch.cuda.is_available()) else "cpu")
+device = torch.device("cuda:5" if(torch.cuda.is_available()) else "cpu")
 print(device, " will be used.\n")
 
 # Get the data.
@@ -178,7 +178,7 @@ for epoch in range(params['nepochs']):
             'optimizerG' : optimizerG.state_dict(),
             'optimizerD' : optimizerD.state_dict(),
             'params' : params
-            }, 'model/model_epoch_{}.pth'.format(epoch))
+            }, 'model/model_360_fnn_epoch_{}.pth'.format(epoch))
 
 # Save the final trained model.
 torch.save({
@@ -187,7 +187,7 @@ torch.save({
             'optimizerG' : optimizerG.state_dict(),
             'optimizerD' : optimizerD.state_dict(),
             'params' : params
-            }, 'model/model_final.pth')
+            }, 'model/model_360_fnn_final.pth')
 
 # Plot the training losses.
 #plt.figure(figsize=(10,5))

@@ -3,7 +3,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as dset
 
 # Directory containing the data.
-root = '/home1/tulika/fundus2/fundus/'
+root = '/home/cs551_group_03/project/dataset2/'
 
 def get_celeba(params):
     """

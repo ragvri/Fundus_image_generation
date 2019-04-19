@@ -15,9 +15,10 @@ parser.add_argument('-num_output', default=1, help='Number of generated outputs'
 args = parser.parse_args()
 
 # Load the checkpoint file.
-for epoch in range(0,14,2):
+for epoch in range(2,18,2):
 	path = f'./model/model_720all_epoch_{epoch}.pth'
 	state_dict = torch.load(path,map_location='cpu')
+	print("Generating images for model : {}".format(epoch))
 
 	# Set the device to run on: GPU or CPU.
 	# device = torch.device("cuda:0" if(torch.cuda.is_available()) else "cpu")
@@ -33,18 +34,20 @@ for epoch in range(0,14,2):
 
 	# print(args.num_output)
 	# Get latent vector Z from unit normal distribution.
-	noise = torch.randn(int(args.num_output), params['nz'], 1, 1, device=device)
+	for i in range(30):
+		noise = torch.randn(int(args.num_output), params['nz'], 1, 1, device=device)
 
-	# Turn off gradient calculation to speed up the process.
-	with torch.no_grad():
-		# Get generated image from the noise vector using
-		# the trained generator.
-		generated_img = netG(noise).detach().cpu()
+		# Turn off gradient calculation to speed up the process.
+		with torch.no_grad():
+			# Get generated image from the noise vector using
+			# the trained generator.
+			generated_img = netG(noise).detach().cpu()
 
-	# Display the generated image.
-	# plt.axis("off")
-	# plt.title("Generated Images")
-	# plt.imshow(np.transpose(vutils.make_grid(generated_img, padding=2, normalize=True), (1,2,0)))
-	plt.imsave(f'./generated_images/{epoch}.jpg', np.transpose(vutils.make_grid(generated_img, padding=2, normalize=True), (1,2,0)))
+		# Display the generated image.
+		# plt.axis("off")
+		# plt.title("Generated Images")
+		# plt.imshow(np.transpose(vutils.make_grid(generated_img, padding=2, normalize=True), (1,2,0)))
+		plt.imsave(f'./generated_images/pic_generated_{epoch}_{i}.jpg', np.transpose(vutils.make_grid(generated_img, padding=2, normalize=True), (1,2,0)))
+		print(f"{i} Images generated for {epoch} Epoch")
 
 	# plt.show()
